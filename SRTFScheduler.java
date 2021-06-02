@@ -10,23 +10,6 @@ import java.util.*;
  */
 public class SRTFScheduler {
 
-    public static void main(String[] args) {
-        SRTFScheduler a = new SRTFScheduler();
-        a.addTask("P2", 5);
-        a.run();
-        a.run();
-        a.addTask("P1", 2);
-        a.run();
-        a.run();
-        a.addTask("P3", 2);
-        a.run();
-        a.run();
-        a.run();
-        a.run();
-        a.run();
-        a.run();
-        System.out.println(a.getLog());
-    }
     /**
      *
      */
@@ -50,13 +33,15 @@ public class SRTFScheduler {
 
         @Override
         public String toString() {
-            /* TODO */
-            return "Task(" +  this.name + ", " + this.length + ", " + (this.remainingTime - 1) + ")";
+            /* Returns a string representation of the task. */
+            return "Task(" +  this.name + ", " +
+                    this.length + ", " + (this.remainingTime - 1) + ")";
         }
 
         @Override
         public int compareTo(Object o) {
-            /* TODO */
+            /* Overrides the original compareTo function with some additions
+            * for comparing remaining time and the name. */
             Task tObject = (Task) o;
             if (this.remainingTime < tObject.remainingTime) {
                 return -1;
@@ -84,7 +69,7 @@ public class SRTFScheduler {
     private List<String> log;
 
     public SRTFScheduler() {
-        /* TODO */
+        /* Constructor for a SRTF Scheduler */
         waitlist = new PriorityQueue<>();
         time = 0;
         log = new ArrayList<>();
@@ -93,13 +78,13 @@ public class SRTFScheduler {
     }
 
     public void addTask(String name, int length) {
-        /* TODO */
+        /* Adds a task to the scheduler. */
         Task toAdd = new Task(name, length);
         this.waitlist.add(toAdd);
     }
 
     public boolean run() {
-        /* TODO */
+        /* Runs an item from the scheduler. */
         time++;
         Task item = waitlist.peek();
         if (this.waitlist.isEmpty()) {
@@ -122,7 +107,7 @@ public class SRTFScheduler {
     }
 
     public List<String> getLog() {
-        /* TODO */
+        /* Returns the log */
         return log;
     }
 }

@@ -10,15 +10,12 @@ import java.util.*;
  *
  */
 public class TFIDF {
-    public static void main(String[] args) throws IOException {
-        TFIDF a = new TFIDF("C:\\Users\\ragha\\Documents\\GitHub\\dsc30sp21-startercode\\PA09\\files\\test.txt");
-        System.out.println(a.query("quick", 3));
-    }
+
     File file;
     ArrayList<HashMap<String, Integer>> mapHold;
     int numDocs;
     public TFIDF(String path) throws IOException {
-        /* TODO */
+        /* Creates a TFIDF Cataloguer using a HashMap and ArrayList*/
         file = new File(path);
         mapHold = new ArrayList<>();
         numDocs = 0;
@@ -41,21 +38,21 @@ public class TFIDF {
             }
         }
         catch (IOException e) {
-            System.out.println("Uh oh");
+            throw new IOException();
         }
     }
 
     public int numDocuments() {
-        /* TODO */
+        /* Returns the number of documents */
         return numDocs;
     }
 
     public double getTF(String word, int docID) {
-        /* TODO */
+        /* Gets the TF (Term Frequency) of a word in a document */
         if (word == null) {
             throw new IllegalArgumentException();
         }
-        if (docID < 0 || docID >= numDocs) {
+        if (docID < 0 || docID > numDocuments()) {
             throw new IllegalArgumentException();
         }
         HashMap<String, Integer> a = mapHold.get(docID);
@@ -70,10 +67,11 @@ public class TFIDF {
     }
 
     public double getIDF(String word) {
-        /* TODO */
+        /* Returns the IDF (Inverse Document Frequency) of a word */
         if (word == null) {
             throw new IllegalArgumentException();
         }
+        word = word.toLowerCase(Locale.ROOT);
         double wordContains = 0.0;
         for (HashMap<String, Integer> map : mapHold) {
             if (map.containsKey(word)) {
@@ -84,7 +82,7 @@ public class TFIDF {
     }
 
     public double query(String word, int docID) {
-        /* TODO */
+        /* Returns the TF * IDF of a word in a specific document */
         if (getIDF(word) == Double.POSITIVE_INFINITY) {
             return Double.NaN;
         }
