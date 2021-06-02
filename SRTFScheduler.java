@@ -65,7 +65,15 @@ public class SRTFScheduler {
                 return 1;
             }
             else {
-                return 0;
+                if (this.name.compareTo(tObject.name) < 0) {
+                    return -1;
+                }
+                else if (this.name.compareTo(tObject.name) > 0) {
+                    return 1;
+                }
+                else {
+                    return 0;
+                }
             }
         }
     }
